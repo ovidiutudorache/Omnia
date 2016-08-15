@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OmniaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationOAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="OAuthProviderId" Type="int" Nullable="false" />
+          <Property Name="ExternalId" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExternalSecret" Type="nvarchar" MaxLength="250" />
+          <Property Name="Scope" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrivateKey" Type="nvarchar" MaxLength="250" />
+          <Property Name="RedirectUrl" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="OAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserOAuthProviderLogins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationOAuthProviderId" Type="int" Nullable="false" />
+          <Property Name="UserOAuthProviderId" Type="int" Nullable="false" />
+          <Property Name="LoginDate" Type="datetime" Nullable="false" />
+          <Property Name="ExternalAccessToken" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="AccessToken" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserOAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="OAuthProviderId" Type="int" Nullable="false" />
+          <Property Name="ExternalId" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="500" />
+          <Property Name="PictureUri" Type="nvarchar" MaxLength="500" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClientOAuthProviders_Clients">
+          <End Role="Applications" Type="Self.Applications" Multiplicity="1" />
+          <End Role="ApplicationOAuthProviders" Type="Self.ApplicationOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationOAuthProviders">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientOAuthProviders_OAuthProviders">
+          <End Role="OAuthProviders" Type="Self.OAuthProviders" Multiplicity="1" />
+          <End Role="ApplicationOAuthProviders" Type="Self.ApplicationOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationOAuthProviders">
+              <PropertyRef Name="OAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviderLogins_ApplicationOAuthProviders">
+          <End Role="ApplicationOAuthProviders" Type="Self.ApplicationOAuthProviders" Multiplicity="1" />
+          <End Role="UserOAuthProviderLogins" Type="Self.UserOAuthProviderLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationOAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviderLogins">
+              <PropertyRef Name="ApplicationOAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviderLogins_UserOAuthProviders">
+          <End Role="UserOAuthProviders" Type="Self.UserOAuthProviders" Multiplicity="1" />
+          <End Role="UserOAuthProviderLogins" Type="Self.UserOAuthProviderLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviderLogins">
+              <PropertyRef Name="UserOAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviders_OAuthProviders">
+          <End Role="OAuthProviders" Type="Self.OAuthProviders" Multiplicity="1" />
+          <End Role="UserOAuthProviders" Type="Self.UserOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviders">
+              <PropertyRef Name="OAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserOAuthProviders" Type="Self.UserOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAccessTokenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accessToken" Type="nvarchar" Mode="In" />
+          <Parameter Name="applicationId" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="OmniaModelStoreContainer">
+          <EntitySet Name="ApplicationOAuthProviders" EntityType="Self.ApplicationOAuthProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OAuthProviders" EntityType="Self.OAuthProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOAuthProviderLogins" EntityType="Self.UserOAuthProviderLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOAuthProviders" EntityType="Self.UserOAuthProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClientOAuthProviders_Clients" Association="Self.FK_ClientOAuthProviders_Clients">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientOAuthProviders_OAuthProviders" Association="Self.FK_ClientOAuthProviders_OAuthProviders">
+            <End Role="OAuthProviders" EntitySet="OAuthProviders" />
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviderLogins_ApplicationOAuthProviders" Association="Self.FK_UserOAuthProviderLogins_ApplicationOAuthProviders">
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+            <End Role="UserOAuthProviderLogins" EntitySet="UserOAuthProviderLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviderLogins_UserOAuthProviders" Association="Self.FK_UserOAuthProviderLogins_UserOAuthProviders">
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+            <End Role="UserOAuthProviderLogins" EntitySet="UserOAuthProviderLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviders_OAuthProviders" Association="Self.FK_UserOAuthProviders_OAuthProviders">
+            <End Role="OAuthProviders" EntitySet="OAuthProviders" />
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviders_Users" Association="Self.FK_UserOAuthProviders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OmniaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OmniaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationOAuthProviders" EntityType="OmniaModel.ApplicationOAuthProviders" />
+          <EntitySet Name="Applications" EntityType="OmniaModel.Applications" />
+          <EntitySet Name="OAuthProviders" EntityType="OmniaModel.OAuthProviders" />
+          <EntitySet Name="UserOAuthProviderLogins" EntityType="OmniaModel.UserOAuthProviderLogins" />
+          <EntitySet Name="UserOAuthProviders" EntityType="OmniaModel.UserOAuthProviders" />
+          <EntitySet Name="Users" EntityType="OmniaModel.Users" />
+          <AssociationSet Name="FK_ClientOAuthProviders_Clients" Association="OmniaModel.FK_ClientOAuthProviders_Clients">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientOAuthProviders_OAuthProviders" Association="OmniaModel.FK_ClientOAuthProviders_OAuthProviders">
+            <End Role="OAuthProviders" EntitySet="OAuthProviders" />
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviderLogins_ApplicationOAuthProviders" Association="OmniaModel.FK_UserOAuthProviderLogins_ApplicationOAuthProviders">
+            <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
+            <End Role="UserOAuthProviderLogins" EntitySet="UserOAuthProviderLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviders_OAuthProviders" Association="OmniaModel.FK_UserOAuthProviders_OAuthProviders">
+            <End Role="OAuthProviders" EntitySet="OAuthProviders" />
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviders_Users" Association="OmniaModel.FK_UserOAuthProviders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOAuthProviderLogins_UserOAuthProviders" Association="OmniaModel.FK_UserOAuthProviderLogins_UserOAuthProviders">
+            <End Role="UserOAuthProviders" EntitySet="UserOAuthProviders" />
+            <End Role="UserOAuthProviderLogins" EntitySet="UserOAuthProviderLogins" />
+          </AssociationSet>
+          <FunctionImport Name="GetAccessTokenUser" ReturnType="Collection(OmniaModel.GetAccessTokenUser_Result)">
+            <Parameter Name="accessToken" Mode="In" Type="String" />
+            <Parameter Name="applicationId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="ApplicationOAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="OAuthProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ExternalId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ExternalSecret" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Scope" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="OmniaModel.FK_ClientOAuthProviders_Clients" FromRole="ApplicationOAuthProviders" ToRole="Applications" />
+          <NavigationProperty Name="OAuthProviders" Relationship="OmniaModel.FK_ClientOAuthProviders_OAuthProviders" FromRole="ApplicationOAuthProviders" ToRole="OAuthProviders" />
+          <NavigationProperty Name="UserOAuthProviderLogins" Relationship="OmniaModel.FK_UserOAuthProviderLogins_ApplicationOAuthProviders" FromRole="ApplicationOAuthProviders" ToRole="UserOAuthProviderLogins" />
+        </EntityType>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrivateKey" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RedirectUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationOAuthProviders" Relationship="OmniaModel.FK_ClientOAuthProviders_Clients" FromRole="Applications" ToRole="ApplicationOAuthProviders" />
+        </EntityType>
+        <EntityType Name="OAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationOAuthProviders" Relationship="OmniaModel.FK_ClientOAuthProviders_OAuthProviders" FromRole="OAuthProviders" ToRole="ApplicationOAuthProviders" />
+          <NavigationProperty Name="UserOAuthProviders" Relationship="OmniaModel.FK_UserOAuthProviders_OAuthProviders" FromRole="OAuthProviders" ToRole="UserOAuthProviders" />
+        </EntityType>
+        <EntityType Name="UserOAuthProviderLogins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationOAuthProviderId" Type="Int32" Nullable="false" />
+          <Property Name="LoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExternalAccessToken" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AccessToken" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationOAuthProviders" Relationship="OmniaModel.FK_UserOAuthProviderLogins_ApplicationOAuthProviders" FromRole="UserOAuthProviderLogins" ToRole="ApplicationOAuthProviders" />
+          <Property Name="UserOAuthProviderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserOAuthProviders" Relationship="OmniaModel.FK_UserOAuthProviderLogins_UserOAuthProviders" FromRole="UserOAuthProviderLogins" ToRole="UserOAuthProviders" />
+        </EntityType>
+        <EntityType Name="UserOAuthProviders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="OAuthProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ExternalId" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PictureUri" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="OAuthProviders" Relationship="OmniaModel.FK_UserOAuthProviders_OAuthProviders" FromRole="UserOAuthProviders" ToRole="OAuthProviders" />
+          <NavigationProperty Name="Users" Relationship="OmniaModel.FK_UserOAuthProviders_Users" FromRole="UserOAuthProviders" ToRole="Users" />
+          <NavigationProperty Name="UserOAuthProviderLogins" Relationship="OmniaModel.FK_UserOAuthProviderLogins_UserOAuthProviders" FromRole="UserOAuthProviders" ToRole="UserOAuthProviderLogins" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicId" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserOAuthProviders" Relationship="OmniaModel.FK_UserOAuthProviders_Users" FromRole="Users" ToRole="UserOAuthProviders" />
+        </EntityType>
+        <Association Name="FK_ClientOAuthProviders_Clients">
+          <End Type="OmniaModel.Applications" Role="Applications" Multiplicity="1" />
+          <End Type="OmniaModel.ApplicationOAuthProviders" Role="ApplicationOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationOAuthProviders">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientOAuthProviders_OAuthProviders">
+          <End Type="OmniaModel.OAuthProviders" Role="OAuthProviders" Multiplicity="1" />
+          <End Type="OmniaModel.ApplicationOAuthProviders" Role="ApplicationOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationOAuthProviders">
+              <PropertyRef Name="OAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviderLogins_ApplicationOAuthProviders">
+          <End Type="OmniaModel.ApplicationOAuthProviders" Role="ApplicationOAuthProviders" Multiplicity="1" />
+          <End Type="OmniaModel.UserOAuthProviderLogins" Role="UserOAuthProviderLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationOAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviderLogins">
+              <PropertyRef Name="ApplicationOAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviders_OAuthProviders">
+          <End Type="OmniaModel.OAuthProviders" Role="OAuthProviders" Multiplicity="1" />
+          <End Type="OmniaModel.UserOAuthProviders" Role="UserOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviders">
+              <PropertyRef Name="OAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviders_Users">
+          <End Type="OmniaModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="OmniaModel.UserOAuthProviders" Role="UserOAuthProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOAuthProviderLogins_UserOAuthProviders">
+          <End Type="OmniaModel.UserOAuthProviders" Role="UserOAuthProviders" Multiplicity="1" />
+          <End Type="OmniaModel.UserOAuthProviderLogins" Role="UserOAuthProviderLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOAuthProviders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserOAuthProviderLogins">
+              <PropertyRef Name="UserOAuthProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetAccessTokenUser_Result">
+          <Property Type="Guid" Name="PublicId" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PictureUri" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ProviderId" Nullable="true" />
+          <Property Type="String" Name="ExternalAccessToken" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OmniaModelStoreContainer" CdmEntityContainer="OmniaEntities">
+          <EntitySetMapping Name="ApplicationOAuthProviders">
+            <EntityTypeMapping TypeName="OmniaModel.ApplicationOAuthProviders">
+              <MappingFragment StoreEntitySet="ApplicationOAuthProviders">
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="ExternalSecret" ColumnName="ExternalSecret" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="OAuthProviderId" ColumnName="OAuthProviderId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="OmniaModel.Applications">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="RedirectUrl" ColumnName="RedirectUrl" />
+                <ScalarProperty Name="PrivateKey" ColumnName="PrivateKey" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PublicId" ColumnName="PublicId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OAuthProviders">
+            <EntityTypeMapping TypeName="OmniaModel.OAuthProviders">
+              <MappingFragment StoreEntitySet="OAuthProviders">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserOAuthProviderLogins">
+            <EntityTypeMapping TypeName="OmniaModel.UserOAuthProviderLogins">
+              <MappingFragment StoreEntitySet="UserOAuthProviderLogins">
+                <ScalarProperty Name="UserOAuthProviderId" ColumnName="UserOAuthProviderId" />
+                <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+                <ScalarProperty Name="ExternalAccessToken" ColumnName="ExternalAccessToken" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="ApplicationOAuthProviderId" ColumnName="ApplicationOAuthProviderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserOAuthProviders">
+            <EntityTypeMapping TypeName="OmniaModel.UserOAuthProviders">
+              <MappingFragment StoreEntitySet="UserOAuthProviders">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="PictureUri" ColumnName="PictureUri" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="OAuthProviderId" ColumnName="OAuthProviderId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OmniaModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PublicId" ColumnName="PublicId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAccessTokenUser" FunctionName="OmniaModel.Store.GetAccessTokenUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OmniaModel.GetAccessTokenUser_Result">
+                <ScalarProperty Name="PublicId" ColumnName="PublicId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PictureUri" ColumnName="PictureUri" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="ExternalAccessToken" ColumnName="ExternalAccessToken" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

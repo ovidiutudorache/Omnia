@@ -1,0 +1,48 @@
+﻿@model Omnia.WebTest.Models.HomePage
+
+@if (Model.User == null)
+{
+<ul>
+    <li>
+        <a href="@Model.FacebookUrl" id="facebook">Login to Facebook</a>
+        <a href="@Model.InstagramUrl" id="instagram">Login to Instagram</a>
+    </li>
+</ul>
+}
+else
+{
+    <p>Hello @Model.User.FirstName</p>
+    <img src="@Model.User.PictureUri" />
+}
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/Omnia.js"></script>
+
+    <script type="text/javascript">
+        //var Module = function () {
+        //    var self = this;
+
+        //    var applicationId = '81572B5D78B546A3A4D5FF746E0910CB';
+        //    Omnia.initialize(applicationId);
+
+        //    var elements = {
+        //        facebook: $("#facebook"),
+        //        instagram: $("#instagram")
+        //    };
+
+        //    this.initialize = function () {
+        //        elements.facebook.click(function () {
+        //            Omnia.loginExternalProvider('facebook', '123');
+        //        });
+
+        //        elements.instagram.click(function () {
+        //            Omnia.loginExternalProvider('instagram', '123');
+        //        });
+        //    };
+        //};
+
+        //$(document).ready(function () {
+        //    new Module().initialize();
+        //});
+    </script>
+}
