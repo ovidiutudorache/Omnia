@@ -1,4 +1,5 @@
 ﻿using OAuth2.Client;
+using RS.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace Omnia.BL
 
         private bool loadedOAuthClients = false;
 
+        private MetadataManager metadataManager = null;
+        public MetadataManager MetadataManager { get { return metadataManager ?? (metadataManager = new MetadataManager(Application.Id)); } }
+
         public ApplicationManager(DM.Application client)
         {
             Application = client;
@@ -29,6 +33,11 @@ namespace Omnia.BL
                 return null;
 
             return OAuthProviders[provider];
+        }
+
+        public ConnectionData GetConnectionData()
+        {
+            return new DAL.ApplicationsRepository().GetConnectionData(Application.Id);
         }
 
         private void LoadOAuthClients()

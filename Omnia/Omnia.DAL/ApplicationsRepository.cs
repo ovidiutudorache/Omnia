@@ -26,6 +26,25 @@ namespace Omnia.DAL
             return application;
         }
 
+        public int GetApplicationId(Guid publicId)
+        {
+            return DataContext.Applications.Where(el => el.PublicId == publicId).Select(el => el.Id).FirstOrDefault();
+        }
+
+        public Guid GetApplicationPublicId(int id)
+        {
+            return DataContext.Applications.Where(el => el.Id == id).Select(el => el.PublicId).FirstOrDefault();
+        }
+
+        public ConnectionData GetConnectionData(int applicationId)
+        {
+            return DataContext.ApplicationDatabases.Where(el => el.ApplicationId == applicationId).Select(el => new ConnectionData()
+            {
+                Database = el.DatabaseName,
+                Instance = el.SqlInstances.Server
+            }).FirstOrDefault();
+        }
+
         public Dictionary<DM.OAuthProviders, DM.ApplicationOAuthProvider> GetClientOAuthProviders(Guid publicId)
         {
             Dictionary<DM.OAuthProviders, DM.ApplicationOAuthProvider> providers = null;

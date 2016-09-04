@@ -33,6 +33,8 @@ namespace Omnia.DAL
         public virtual DbSet<UserOAuthProviderLogins> UserOAuthProviderLogins { get; set; }
         public virtual DbSet<UserOAuthProviders> UserOAuthProviders { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ApplicationDatabases> ApplicationDatabases { get; set; }
+        public virtual DbSet<SqlInstances> SqlInstances { get; set; }
     
         public virtual ObjectResult<GetAccessTokenUser_Result> GetAccessTokenUser(string accessToken, ObjectParameter applicationId)
         {

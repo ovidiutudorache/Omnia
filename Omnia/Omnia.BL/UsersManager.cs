@@ -19,9 +19,9 @@ namespace Omnia.BL
             int userOAuthProviderId = 0;
             DM.AuthenticatedUser user = usersRepository.SaveUser(request.Provider, externalId, email, firstName, lastName, pictureUri, accessTokenId, externalAccessToken, out userOAuthProviderId);
 
-            BL.ApplicationManager applicationManager = new BL.ApplicationsManager().GetApplicationManager(request.ApplicationId);
+            BL.ApplicationManager applicationManager = ApplicationsManager.GetApplicationManager(request.ApplicationId);
 
-            DM.AccessToken accessToken = AccessTokensManager.Instance.GenerateAccessorToken(applicationManager.Application.Id, user, accessTokenId);
+            DM.AccessToken accessToken = AccessTokensManager.Instance.GenerateAccessorToken(applicationManager.Application.Id, applicationManager.Application.PublicId, user, accessTokenId);
 
             if (addLogin)
                 usersRepository.AddLogin(applicationManager.Application.OAuthProviders[request.Provider].Id, userOAuthProviderId, accessTokenId, externalAccessToken);
@@ -29,11 +29,11 @@ namespace Omnia.BL
             return accessToken;
         }
 
-        public DM.AuthenticatedUser GetAuthenticatedUser(string accessToken, out int applicationId)
+        public DM.AuthenticatedUser GetAuthenticatedUser(string accessToken, out int applicationId, out Guid applicationPublicId)
         {
             applicationId = 0;
 
-            return new DAL.UsersRepository().GetAuthenticatedUser(accessToken, out applicationId);
+            return new DAL.UsersRepository().GetAuthenticatedUser(accessToken, out applicationId, out applicationPublicId);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Omnia.DAL
         public Applications()
         {
             this.ApplicationOAuthProviders = new HashSet<ApplicationOAuthProviders>();
+            this.ApplicationDatabases = new HashSet<ApplicationDatabases>();
         }
     
         public int Id { get; set; }
@@ -28,5 +29,7 @@ namespace Omnia.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApplicationOAuthProviders> ApplicationOAuthProviders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApplicationDatabases> ApplicationDatabases { get; set; }
     }
 }

@@ -46,8 +46,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RS.Common, Version=1.0.6024.20546, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RS.Common.1.62.0.0\lib\net45\RS.Common.dll</HintPath>
+    <Reference Include="RS.Common, Version=1.0.6082.32572, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RS.Common.1.63.0.0\lib\net45\RS.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RS.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationDatabases.cs">
+      <DependentUpon>OmniaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationOAuthProviders.cs">
       <DependentUpon>OmniaModel.tt</DependentUpon>
     </Compile>
@@ -77,6 +80,9 @@
       <DependentUpon>OmniaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OAuthProviders.cs">
+      <DependentUpon>OmniaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SqlInstances.cs">
       <DependentUpon>OmniaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserOAuthProviderLogins.cs">

@@ -77,8 +77,8 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RS.Common, Version=1.0.6024.20546, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RS.Common.1.62.0.0\lib\net45\RS.Common.dll</HintPath>
+    <Reference Include="RS.Common, Version=1.0.6082.32572, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RS.Common.1.63.0.0\lib\net45\RS.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RS.Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AccessTokensController.cs" />
+    <Compile Include="Controllers\CollectionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

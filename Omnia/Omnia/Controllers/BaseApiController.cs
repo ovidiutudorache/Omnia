@@ -43,6 +43,8 @@ namespace Omnia.Controllers
             return queryStringParameters[name];
         }
 
+        public ApplicationManager ApplicationManager { get { return AccessToken != null ? ApplicationsManager.GetApplicationManager(AccessToken.ApplicationPublicId) : null; } }
+
         public DM.AccessToken AccessToken { get { return AccessTokensManager.Instance.GetAccessToken(AccessTokenId); } }
 
         internal T SimpleCall<T>(Func<T> action)

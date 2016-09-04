@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OmniaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationDatabases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="SqlInstanceId" Type="int" Nullable="false" />
+          <Property Name="DatabaseName" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="ApplicationOAuthProviders">
           <Key>
             <PropertyRef Name="Id" />
@@ -32,6 +41,13 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SqlInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Server" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UserOAuthProviderLogins">
           <Key>
@@ -66,7 +82,31 @@
           <Property Name="Email" Type="nvarchar" MaxLength="250" />
           <Property Name="DateAdded" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK_ClientOAuthProviders_Clients">
+        <Association Name="FK_ApplicationDatabases_Applications">
+          <End Role="Applications" Type="Self.Applications" Multiplicity="1" />
+          <End Role="ApplicationDatabases" Type="Self.ApplicationDatabases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationDatabases">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationDatabases_SqlInstances">
+          <End Role="SqlInstances" Type="Self.SqlInstances" Multiplicity="1" />
+          <End Role="ApplicationDatabases" Type="Self.ApplicationDatabases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SqlInstances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationDatabases">
+              <PropertyRef Name="SqlInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationOAuthProviders_Applications">
           <End Role="Applications" Type="Self.Applications" Multiplicity="1" />
           <End Role="ApplicationOAuthProviders" Type="Self.ApplicationOAuthProviders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -78,7 +118,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientOAuthProviders_OAuthProviders">
+        <Association Name="FK_ApplicationOAuthProviders_OAuthProviders">
           <End Role="OAuthProviders" Type="Self.OAuthProviders" Multiplicity="1" />
           <End Role="ApplicationOAuthProviders" Type="Self.ApplicationOAuthProviders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,17 +183,27 @@
           <Parameter Name="applicationId" Type="int" Mode="InOut" />
         </Function>
         <EntityContainer Name="OmniaModelStoreContainer">
+          <EntitySet Name="ApplicationDatabases" EntityType="Self.ApplicationDatabases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApplicationOAuthProviders" EntityType="Self.ApplicationOAuthProviders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OAuthProviders" EntityType="Self.OAuthProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SqlInstances" EntityType="Self.SqlInstances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserOAuthProviderLogins" EntityType="Self.UserOAuthProviderLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserOAuthProviders" EntityType="Self.UserOAuthProviders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ClientOAuthProviders_Clients" Association="Self.FK_ClientOAuthProviders_Clients">
+          <AssociationSet Name="FK_ApplicationDatabases_Applications" Association="Self.FK_ApplicationDatabases_Applications">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="ApplicationDatabases" EntitySet="ApplicationDatabases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationDatabases_SqlInstances" Association="Self.FK_ApplicationDatabases_SqlInstances">
+            <End Role="SqlInstances" EntitySet="SqlInstances" />
+            <End Role="ApplicationDatabases" EntitySet="ApplicationDatabases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationOAuthProviders_Applications" Association="Self.FK_ApplicationOAuthProviders_Applications">
             <End Role="Applications" EntitySet="Applications" />
             <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientOAuthProviders_OAuthProviders" Association="Self.FK_ClientOAuthProviders_OAuthProviders">
+          <AssociationSet Name="FK_ApplicationOAuthProviders_OAuthProviders" Association="Self.FK_ApplicationOAuthProviders_OAuthProviders">
             <End Role="OAuthProviders" EntitySet="OAuthProviders" />
             <End Role="ApplicationOAuthProviders" EntitySet="ApplicationOAuthProviders" />
           </AssociationSet>
@@ -213,6 +263,16 @@
             <Parameter Name="accessToken" Mode="In" Type="String" />
             <Parameter Name="applicationId" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ApplicationDatabases" EntityType="OmniaModel.ApplicationDatabases" />
+          <EntitySet Name="SqlInstances" EntityType="OmniaModel.SqlInstances" />
+          <AssociationSet Name="FK_ApplicationDatabases_Applications" Association="OmniaModel.FK_ApplicationDatabases_Applications">
+            <End Role="Applications" EntitySet="Applications" />
+            <End Role="ApplicationDatabases" EntitySet="ApplicationDatabases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationDatabases_SqlInstances" Association="OmniaModel.FK_ApplicationDatabases_SqlInstances">
+            <End Role="SqlInstances" EntitySet="SqlInstances" />
+            <End Role="ApplicationDatabases" EntitySet="ApplicationDatabases" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ApplicationOAuthProviders">
           <Key>
@@ -238,6 +298,7 @@
           <Property Name="PrivateKey" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="RedirectUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ApplicationOAuthProviders" Relationship="OmniaModel.FK_ClientOAuthProviders_Clients" FromRole="Applications" ToRole="ApplicationOAuthProviders" />
+          <NavigationProperty Name="ApplicationDatabases" Relationship="OmniaModel.FK_ApplicationDatabases_Applications" FromRole="Applications" ToRole="ApplicationDatabases" />
         </EntityType>
         <EntityType Name="OAuthProviders">
           <Key>
@@ -368,6 +429,49 @@
           <Property Type="Int32" Name="ProviderId" Nullable="true" />
           <Property Type="String" Name="ExternalAccessToken" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="ApplicationDatabases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="SqlInstanceId" Type="Int32" Nullable="false" />
+          <Property Name="DatabaseName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applications" Relationship="OmniaModel.FK_ApplicationDatabases_Applications" FromRole="ApplicationDatabases" ToRole="Applications" />
+          <NavigationProperty Name="SqlInstances" Relationship="OmniaModel.FK_ApplicationDatabases_SqlInstances" FromRole="ApplicationDatabases" ToRole="SqlInstances" />
+        </EntityType>
+        <EntityType Name="SqlInstances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Server" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationDatabases" Relationship="OmniaModel.FK_ApplicationDatabases_SqlInstances" FromRole="SqlInstances" ToRole="ApplicationDatabases" />
+        </EntityType>
+        <Association Name="FK_ApplicationDatabases_Applications">
+          <End Type="OmniaModel.Applications" Role="Applications" Multiplicity="1" />
+          <End Type="OmniaModel.ApplicationDatabases" Role="ApplicationDatabases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applications">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationDatabases">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationDatabases_SqlInstances">
+          <End Type="OmniaModel.SqlInstances" Role="SqlInstances" Multiplicity="1" />
+          <End Type="OmniaModel.ApplicationDatabases" Role="ApplicationDatabases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SqlInstances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationDatabases">
+              <PropertyRef Name="SqlInstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -454,6 +558,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ApplicationDatabases">
+            <EntityTypeMapping TypeName="OmniaModel.ApplicationDatabases">
+              <MappingFragment StoreEntitySet="ApplicationDatabases">
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+                <ScalarProperty Name="SqlInstanceId" ColumnName="SqlInstanceId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SqlInstances">
+            <EntityTypeMapping TypeName="OmniaModel.SqlInstances">
+              <MappingFragment StoreEntitySet="SqlInstances">
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

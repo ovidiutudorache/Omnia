@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="CollectionId" Type="int" Nullable="false" />
+          <Property Name="IsNullable" Type="bit" Nullable="false" />
+          <Property Name="IsPrimaryKey" Type="bit" Nullable="false" />
+          <Property Name="Length" Type="int" />
+          <Property Name="Precision" Type="int" />
+          <Property Name="Scale" Type="int" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="DefaultValue" Type="nvarchar(max)" />
+          <Property Name="Formula" Type="nvarchar(max)" />
+          <Property Name="IsPersistent" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Increment" Type="numeric" Precision="38" Scale="0" />
+          <Property Name="Seed" Type="numeric" Precision="38" Scale="0" />
+          <Property Name="IsSparse" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Collections">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relationships">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttributeId" Type="int" Nullable="false" />
+          <Property Name="RelatedAttributeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Attributes_Collections">
+          <End Role="Collections" Type="Self.Collections" Multiplicity="1" />
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collections">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attributes">
+              <PropertyRef Name="CollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationships_Attributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="Relationships" Type="Self.Relationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relationships">
+              <PropertyRef Name="AttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationships_RelatedAttributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="Relationships" Type="Self.Relationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relationships">
+              <PropertyRef Name="RelatedAttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientModelStoreContainer">
+          <EntitySet Name="Attributes" EntityType="Self.Attributes" Schema="Omnia" store:Type="Tables" />
+          <EntitySet Name="Collections" EntityType="Self.Collections" Schema="Omnia" store:Type="Tables" />
+          <EntitySet Name="Relationships" EntityType="Self.Relationships" Schema="Omnia" store:Type="Tables" />
+          <AssociationSet Name="FK_Attributes_Collections" Association="Self.FK_Attributes_Collections">
+            <End Role="Collections" EntitySet="Collections" />
+            <End Role="Attributes" EntitySet="Attributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationships_Attributes" Association="Self.FK_Relationships_Attributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="Relationships" EntitySet="Relationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationships_RelatedAttributes" Association="Self.FK_Relationships_RelatedAttributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="Relationships" EntitySet="Relationships" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CollectionId" Type="Int32" Nullable="false" />
+          <Property Name="IsNullable" Type="Boolean" Nullable="false" />
+          <Property Name="IsPrimaryKey" Type="Boolean" Nullable="false" />
+          <Property Name="Length" Type="Int32" />
+          <Property Name="Precision" Type="Int32" />
+          <Property Name="Scale" Type="Int32" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="DefaultValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Formula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsPersistent" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Increment" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="Seed" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="IsSparse" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Collections" Relationship="Self.FK_Attributes_Collections" FromRole="Attributes" ToRole="Collections" />
+          <NavigationProperty Name="Relationships" Relationship="Self.FK_Relationships_Attributes" FromRole="Attributes" ToRole="Relationships" />
+          <NavigationProperty Name="Relationships1" Relationship="Self.FK_Relationships_RelatedAttributes" FromRole="Attributes" ToRole="Relationships" />
+        </EntityType>
+        <EntityType Name="Collections">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_Attributes_Collections" FromRole="Collections" ToRole="Attributes" />
+        </EntityType>
+        <EntityType Name="Relationships">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeId" Type="Int32" Nullable="false" />
+          <Property Name="RelatedAttributeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_Relationships_Attributes" FromRole="Relationships" ToRole="Attributes" />
+          <NavigationProperty Name="Attributes1" Relationship="Self.FK_Relationships_RelatedAttributes" FromRole="Relationships" ToRole="Attributes" />
+        </EntityType>
+        <Association Name="FK_Attributes_Collections">
+          <End Role="Collections" Type="Self.Collections" Multiplicity="1" />
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collections">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attributes">
+              <PropertyRef Name="CollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationships_Attributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="Relationships" Type="Self.Relationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relationships">
+              <PropertyRef Name="AttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationships_RelatedAttributes">
+          <End Role="Attributes" Type="Self.Attributes" Multiplicity="1" />
+          <End Role="Relationships" Type="Self.Relationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attributes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relationships">
+              <PropertyRef Name="RelatedAttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attributes" EntityType="Self.Attributes" />
+          <EntitySet Name="Collections" EntityType="Self.Collections" />
+          <EntitySet Name="Relationships" EntityType="Self.Relationships" />
+          <AssociationSet Name="FK_Attributes_Collections" Association="Self.FK_Attributes_Collections">
+            <End Role="Collections" EntitySet="Collections" />
+            <End Role="Attributes" EntitySet="Attributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationships_Attributes" Association="Self.FK_Relationships_Attributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="Relationships" EntitySet="Relationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationships_RelatedAttributes" Association="Self.FK_Relationships_RelatedAttributes">
+            <End Role="Attributes" EntitySet="Attributes" />
+            <End Role="Relationships" EntitySet="Relationships" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientModelStoreContainer" CdmEntityContainer="ClientEntities">
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="ClientModel.Attributes">
+              <MappingFragment StoreEntitySet="Attributes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CollectionId" ColumnName="CollectionId" />
+                <ScalarProperty Name="IsNullable" ColumnName="IsNullable" />
+                <ScalarProperty Name="IsPrimaryKey" ColumnName="IsPrimaryKey" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Precision" ColumnName="Precision" />
+                <ScalarProperty Name="Scale" ColumnName="Scale" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Formula" ColumnName="Formula" />
+                <ScalarProperty Name="IsPersistent" ColumnName="IsPersistent" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Increment" ColumnName="Increment" />
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+                <ScalarProperty Name="IsSparse" ColumnName="IsSparse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collections">
+            <EntityTypeMapping TypeName="ClientModel.Collections">
+              <MappingFragment StoreEntitySet="Collections">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SId" ColumnName="SId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relationships">
+            <EntityTypeMapping TypeName="ClientModel.Relationships">
+              <MappingFragment StoreEntitySet="Relationships">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+                <ScalarProperty Name="RelatedAttributeId" ColumnName="RelatedAttributeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

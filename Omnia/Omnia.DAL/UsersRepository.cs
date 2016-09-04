@@ -80,9 +80,10 @@ namespace Omnia.DAL
             DataContext.SaveChangesAsync();
         }
 
-        public DM.AuthenticatedUser GetAuthenticatedUser(string accessToken, out int applicationId)
+        public DM.AuthenticatedUser GetAuthenticatedUser(string accessToken, out int applicationId, out Guid applicationPublicId)
         {
             applicationId = 0;
+            applicationPublicId = Guid.Empty;
             DM.AuthenticatedUser user = null;
 
             try
@@ -99,6 +100,10 @@ namespace Omnia.DAL
                     var applicationIdParameter = new SqlParameter("@applicationId", System.Data.SqlDbType.Int);
                     applicationIdParameter.Direction = System.Data.ParameterDirection.Output;
                     command.Parameters.Add(applicationIdParameter);
+
+                    var applicationPublicIdParameter = new SqlParameter("@applicationPublicId", System.Data.SqlDbType.UniqueIdentifier);
+                    applicationPublicIdParameter.Direction = System.Data.ParameterDirection.Output;
+                    command.Parameters.Add(applicationPublicIdParameter);
 
                     using (DbDataReader reader = command.ExecuteReader())
                     {
@@ -117,7 +122,10 @@ namespace Omnia.DAL
                     }
 
                     if (user != null)
+                    {
                         applicationId = DataConverter.ToInt32(applicationIdParameter.Value);
+                        applicationPublicId = DataConverter.ToGuid(applicationPublicIdParameter.Value);
+                    }
                 }
 
                 return user;

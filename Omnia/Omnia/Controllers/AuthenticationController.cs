@@ -54,7 +54,7 @@ namespace Omnia.Controllers
             if (accessToken == null)
                 throw new HandledException("Unable to authenticate user.");
 
-            BL.ApplicationManager applicationManager = new BL.ApplicationsManager().GetApplicationManager(request.ApplicationId);
+            BL.ApplicationManager applicationManager = BL.ApplicationsManager.GetApplicationManager(request.ApplicationId);
 
             var url = new Uri(applicationManager.Application.RedirectUrl);
             url = url.AddParameter("code", accessToken.Code);
@@ -67,7 +67,7 @@ namespace Omnia.Controllers
 
         private OAuth2Client GetOAuth2Client(Guid applicationId, OAuthProviders provider)
         {
-            BL.ApplicationManager applicationManager = new BL.ApplicationsManager().GetApplicationManager(applicationId);
+            BL.ApplicationManager applicationManager = BL.ApplicationsManager.GetApplicationManager(applicationId);
             if (applicationManager == null)
                 throw new HandledException("Application not found.");
 

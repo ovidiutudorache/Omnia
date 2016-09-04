@@ -11,13 +11,15 @@ namespace Omnia.DM
         public string Id { get; private set; }
         public string Code { get; private set; }
         public int ApplicationId { get; set; }
+        public Guid ApplicationPublicId { get; set; }
         public DM.AuthenticatedUser User { get; set; }
 
-        public AccessToken(int applicationId, DM.AuthenticatedUser user, string id = null)
+        public AccessToken(int applicationId, Guid applicationPublicId, DM.AuthenticatedUser user, string id = null)
         {
             Id = string.IsNullOrWhiteSpace(id) ? GenerateId() : id;
             Code = GenerateCode();
             ApplicationId = applicationId;
+            ApplicationPublicId = applicationPublicId;
             User = user;
         }
 

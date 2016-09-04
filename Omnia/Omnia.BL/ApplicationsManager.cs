@@ -12,8 +12,30 @@ namespace Omnia.BL
     public class ApplicationsManager
     {
         public static Dictionary<Guid, ApplicationManager> ApplicationManagers { get; private set; }
+        private static Dictionary<int, Guid> applicationIds = null;
 
-        public ApplicationManager GetApplicationManager(Guid publicId)
+        public static ApplicationManager GetApplicationManager(int id)
+        {
+            if (applicationIds == null)
+                applicationIds = new Dictionary<int, Guid>();
+
+            Guid publicId;
+
+            if (!applicationIds.ContainsKey(id))
+            {
+                publicId = new DAL.ApplicationsRepository().GetApplicationPublicId(id);
+                if (publicId == default(Guid))
+                    throw new HandledException("No application found with id " + id);
+
+                applicationIds.Add(id, publicId);
+            }
+
+            publicId = applicationIds[id];
+
+            return GetApplicationManager(publicId);
+        }
+
+        public static ApplicationManager GetApplicationManager(Guid publicId)
         {
             DM.Application application = null;
 

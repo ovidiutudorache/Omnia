@@ -1,6 +1,7 @@
-﻿CREATE proc GetAccessTokenUser(
+﻿CREATE proc [dbo].[GetAccessTokenUser](
 	@accessToken nvarchar(500),
-	@applicationId int output
+	@applicationId int output,
+	@applicationPublicId uniqueidentifier output
 )
 as
 begin
@@ -9,7 +10,8 @@ begin
 	select
 		@userOAuthProviderId = UserOAuthProviderId,
 		@applicationOAuthProviderId = ApplicationOAuthProviderId,
-		@applicationId = a.Id
+		@applicationId = a.Id,
+		@applicationPublicId = a.PublicId
 	from
 		UserOAuthProviderLogins
 		inner join ApplicationOAuthProviders appProviders on ApplicationOAuthProviderId = appProviders.Id

@@ -12,6 +12,11 @@ namespace Omnia
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "CollectionApi",
+                routeTemplate: "api/collections/{collection}"
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

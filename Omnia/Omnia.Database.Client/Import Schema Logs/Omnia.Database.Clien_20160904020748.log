@@ -1,0 +1,80 @@
+04-Sep-16 5:07:48 PM	This log contains information about the import schema operation into project 'Omnia.Database.Client' on computer 'DESKTOP-F4PGFEB' by user 'ovidiu.tudorache'.
+04-Sep-16 5:07:48 PM	Import of database schema has started.
+04-Sep-16 5:07:53 PM	Gathering database options
+04-Sep-16 5:07:53 PM	Gathering users
+04-Sep-16 5:07:53 PM	Gathering roles
+04-Sep-16 5:07:53 PM	Gathering application roles
+04-Sep-16 5:07:53 PM	Gathering role memberships
+04-Sep-16 5:07:53 PM	Gathering filegroups
+04-Sep-16 5:07:53 PM	Gathering full-text catalogs
+04-Sep-16 5:07:53 PM	Gathering assemblies
+04-Sep-16 5:07:53 PM	Gathering certificates
+04-Sep-16 5:07:53 PM	Gathering asymmetric keys
+04-Sep-16 5:07:53 PM	Gathering symmetric keys
+04-Sep-16 5:07:53 PM	Gathering encrypted symmetric keys
+04-Sep-16 5:07:53 PM	Gathering schemas
+04-Sep-16 5:07:53 PM	Gathering XML schema collections
+04-Sep-16 5:07:53 PM	Gathering user-defined data types
+04-Sep-16 5:07:53 PM	Gathering user-defined types
+04-Sep-16 5:07:53 PM	Gathering table types
+04-Sep-16 5:07:53 PM	Gathering unique keys for table types
+04-Sep-16 5:07:53 PM	Gathering primary keys for table types
+04-Sep-16 5:07:53 PM	Gathering indexes for table types
+04-Sep-16 5:07:53 PM	Gathering check constraints for table types
+04-Sep-16 5:07:53 PM	Gathering default constraints for table types
+04-Sep-16 5:07:53 PM	Gathering partition functions
+04-Sep-16 5:07:53 PM	Gathering partition schemes
+04-Sep-16 5:07:53 PM	Gathering functions
+04-Sep-16 5:07:53 PM	Gathering encrypted functions
+04-Sep-16 5:07:53 PM	Gathering aggregates
+04-Sep-16 5:07:53 PM	Gathering procedures
+04-Sep-16 5:07:53 PM	Gathering encrypted procedures
+04-Sep-16 5:07:53 PM	Gathering tables
+04-Sep-16 5:07:53 PM	Gathering primary keys
+04-Sep-16 5:07:53 PM	Gathering unique constraints
+04-Sep-16 5:07:53 PM	Gathering foreign keys
+04-Sep-16 5:07:53 PM	Gathering default constraints
+04-Sep-16 5:07:53 PM	Gathering check constraints
+04-Sep-16 5:07:53 PM	Gathering views
+04-Sep-16 5:07:53 PM	Gathering encrypted views
+04-Sep-16 5:07:53 PM	Gathering indexes
+04-Sep-16 5:07:53 PM	Gathering statistics
+04-Sep-16 5:07:53 PM	Gathering full-text index stoplists
+04-Sep-16 5:07:53 PM	Gathering search property lists
+04-Sep-16 5:07:53 PM	Gathering search properties
+04-Sep-16 5:07:53 PM	Gathering full-text indexes
+04-Sep-16 5:07:53 PM	Gathering column store indexes
+04-Sep-16 5:07:53 PM	Gathering spatial indexes
+04-Sep-16 5:07:53 PM	Gathering XML indexes
+04-Sep-16 5:07:53 PM	Gathering Selective XML indexes
+04-Sep-16 5:07:53 PM	Gathering encrypted triggers
+04-Sep-16 5:07:53 PM	Gathering triggers
+04-Sep-16 5:07:53 PM	Gathering encrypted and clr ddl triggers
+04-Sep-16 5:07:53 PM	Gathering ddl triggers
+04-Sep-16 5:07:53 PM	Gathering synonyms
+04-Sep-16 5:07:53 PM	Gathering defaults
+04-Sep-16 5:07:53 PM	Gathering data constraint uddt bindings
+04-Sep-16 5:07:53 PM	Gathering rules
+04-Sep-16 5:07:53 PM	Gathering data constraint uddt bindings
+04-Sep-16 5:07:53 PM	Gathering message types
+04-Sep-16 5:07:53 PM	Gathering queues
+04-Sep-16 5:07:53 PM	Gathering contracts
+04-Sep-16 5:07:53 PM	Gathering services
+04-Sep-16 5:07:53 PM	Gathering event notifications
+04-Sep-16 5:07:53 PM	Gathering remote service bindings
+04-Sep-16 5:07:53 PM	Gathering broker priorities
+04-Sep-16 5:07:53 PM	Gathering signatures
+04-Sep-16 5:07:53 PM	Gathering data compression options
+04-Sep-16 5:07:53 PM	Gathering sequence types
+04-Sep-16 5:07:53 PM	Gathering security policies
+04-Sep-16 5:07:53 PM	Gather column encryption keys
+04-Sep-16 5:07:53 PM	Gathering column master keys
+04-Sep-16 5:07:53 PM	Gathering external data sources
+04-Sep-16 5:07:53 PM	Gathering external file formats
+04-Sep-16 5:07:53 PM	Gathering external tables
+04-Sep-16 5:07:53 PM	Gathering extended properties
+04-Sep-16 5:07:53 PM	Scanning project for duplicate elements
+04-Sep-16 5:07:53 PM	Finished duplicate element processing
+04-Sep-16 5:07:54 PM	Finished importing database.
+04-Sep-16 5:07:54 PM	A summary of the import was saved to the following location: C:\Projects\Git\Omnia\trunk\Omnia\Omnia.Database.Client\Import Schema Logs\Omnia.Database.Clien_20160904020748.log
+04-Sep-16 5:07:54 PM	Click Finish to continue...

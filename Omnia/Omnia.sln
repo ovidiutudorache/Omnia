@@ -23,6 +23,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnia.Client", "Omnia.Clien
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Omnia.Database", "Omnia.Database\Omnia.Database.sqlproj", "{520CF81A-A421-4ED7-BA9F-D2FC9E79D671}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RS.SQL", "..\..\..\RomanianSoftware\Components\trunk\RS.SQL\RS.SQL.csproj", "{90ED0CE5-AA69-4374-921A-008EBF218B25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{73F4EF52-EBDD-4B3F-9852-9EDA092A66FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnia.ConsoleTests", "Tests\Omnia.ConsoleTests\Omnia.ConsoleTests.csproj", "{6BA4C4C3-40B0-47A8-9A56-09997F8730E8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Omnia.Database.Client", "Omnia.Database.Client\Omnia.Database.Client.sqlproj", "{80241D19-6FA6-4276-86AA-2C4022ABF818}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnia.Client.DAL", "Omnia.Client.DAL\Omnia.Client.DAL.csproj", "{7483E00B-31A1-4F86-95A0-B1DC15026347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,8 +81,29 @@ Global
 		{520CF81A-A421-4ED7-BA9F-D2FC9E79D671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{520CF81A-A421-4ED7-BA9F-D2FC9E79D671}.Release|Any CPU.Build.0 = Release|Any CPU
 		{520CF81A-A421-4ED7-BA9F-D2FC9E79D671}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{90ED0CE5-AA69-4374-921A-008EBF218B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90ED0CE5-AA69-4374-921A-008EBF218B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90ED0CE5-AA69-4374-921A-008EBF218B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90ED0CE5-AA69-4374-921A-008EBF218B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA4C4C3-40B0-47A8-9A56-09997F8730E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA4C4C3-40B0-47A8-9A56-09997F8730E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA4C4C3-40B0-47A8-9A56-09997F8730E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA4C4C3-40B0-47A8-9A56-09997F8730E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80241D19-6FA6-4276-86AA-2C4022ABF818}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7483E00B-31A1-4F86-95A0-B1DC15026347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7483E00B-31A1-4F86-95A0-B1DC15026347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7483E00B-31A1-4F86-95A0-B1DC15026347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7483E00B-31A1-4F86-95A0-B1DC15026347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6BA4C4C3-40B0-47A8-9A56-09997F8730E8} = {73F4EF52-EBDD-4B3F-9852-9EDA092A66FD}
 	EndGlobalSection
 EndGlobal

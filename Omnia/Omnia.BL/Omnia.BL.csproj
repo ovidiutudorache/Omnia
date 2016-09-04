@@ -70,8 +70,8 @@
       <HintPath>..\packages\RS.Caching.1.10.0.0\lib\net45\RS.Caching.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RS.Common, Version=1.0.6024.20546, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RS.Common.1.62.0.0\lib\net45\RS.Common.dll</HintPath>
+    <Reference Include="RS.Common, Version=1.0.6082.32572, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RS.Common.1.63.0.0\lib\net45\RS.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RS.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="AccessTokensManager.cs" />
     <Compile Include="ApplicationManager.cs" />
+    <Compile Include="MetadataManager.cs" />
     <Compile Include="UsersManager.cs" />
     <Compile Include="ApplicationsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +115,10 @@
     <ProjectReference Include="..\OAuth2\OAuth2.csproj">
       <Project>{c95637cd-25e5-483e-9c74-89fe3adb999b}</Project>
       <Name>OAuth2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Omnia.Client.DAL\Omnia.Client.DAL.csproj">
+      <Project>{7483e00b-31a1-4f86-95a0-b1dc15026347}</Project>
+      <Name>Omnia.Client.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Omnia.Common\Omnia.Common.csproj">
       <Project>{e5cf0f5e-1703-4657-8e6f-b4dd07fc62ae}</Project>

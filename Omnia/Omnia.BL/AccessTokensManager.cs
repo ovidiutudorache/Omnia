@@ -17,12 +17,12 @@ namespace Omnia.BL
 
         AccessTokensManager() { }
 
-        public DM.AccessToken GenerateAccessorToken(int applicationId, DM.AuthenticatedUser user, string id = null)
+        public DM.AccessToken GenerateAccessorToken(int applicationId, Guid applicationPublicId, DM.AuthenticatedUser user, string id = null)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var accessToken = new DM.AccessToken(applicationId, user, id);
+            var accessToken = new DM.AccessToken(applicationId, applicationPublicId, user, id);
 
             RemoveOldAccessToken(applicationId, user);
 
@@ -36,20 +36,24 @@ namespace Omnia.BL
 
         public DM.AccessToken GetAccessToken(string accessToken)
         {
+            if (string.IsNullOrWhiteSpace(accessToken))
+                return null;
+
             if (!AccessTokens.ContainsKey(accessToken))
             {
                 int applicationId = 0;
-                DM.AuthenticatedUser user = new BL.UsersManager().GetAuthenticatedUser(accessToken, out applicationId);
+                Guid applicationPublicId;
+                DM.AuthenticatedUser user = new BL.UsersManager().GetAuthenticatedUser(accessToken, out applicationId, out applicationPublicId);
                 if (user == null)
                     return null;
 
-                var at = new DM.AccessToken(applicationId, user, accessToken);
+                var at = new DM.AccessToken(applicationId, applicationPublicId, user, accessToken);
                 AccessTokens.Add(accessToken, at);
 
                 return at;
             }
 
-            return AccessTokensManager.Instance.AccessTokens[accessToken];
+            return Instance.AccessTokens[accessToken];
         }
 
         public DM.AccessToken GetAccessTokenByCode(string code)
