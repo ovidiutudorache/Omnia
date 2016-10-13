@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -48,6 +48,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -64,8 +68,8 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -157,7 +161,9 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -196,6 +202,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\PageDesignerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AccessTokensController.cs" />
@@ -209,10 +216,75 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\alerter.css" />
+    <Content Include="Content\autocomplete.css" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\breadcrumb.css" />
+    <Content Include="Content\button.css" />
+    <Content Include="Content\buttondropdown.css" />
+    <Content Include="Content\buttongroup.css" />
+    <Content Include="Content\combobox.css" />
+    <Content Include="Content\container.css" />
+    <Content Include="Content\controls.css" />
+    <Content Include="Content\dropdown.css" />
+    <Content Include="Content\grid.css" />
+    <Content Include="Content\list.css" />
+    <Content Include="Content\menu.css" />
+    <Content Include="Content\modal.css" />
+    <Content Include="Content\notification.css" />
+    <Content Include="Content\pager.css" />
+    <Content Include="Content\PagesDesigner.css" />
+    <Content Include="Content\panel.css" />
+    <Content Include="Content\popover.css" />
+    <Content Include="Content\progressbar.css" />
+    <Content Include="Content\splitbutton.css" />
+    <Content Include="Content\tab.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\togglebutton.css" />
+    <Content Include="Content\tooltip.css" />
+    <Content Include="Content\treeview.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -239,21 +311,114 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\handlebars.amd.js" />
+    <Content Include="Scripts\handlebars.amd.min.js" />
+    <Content Include="Scripts\handlebars.js" />
+    <Content Include="Scripts\handlebars.min.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
+    <Content Include="Scripts\handlebars.runtime.js" />
+    <Content Include="Scripts\handlebars.runtime.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jstorage.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\PageDesigner\ComponentsRepository.js" />
+    <Content Include="Scripts\PageDesigner\Components\Container.js" />
+    <Content Include="Scripts\PageDesigner\Components\GridColumn.js" />
+    <Content Include="Scripts\PageDesigner\Components\GridRow.js" />
+    <Content Include="Scripts\PageDesigner\Components\DataDropdown.js" />
+    <Content Include="Scripts\PageDesigner\Components\Heading.js" />
+    <Content Include="Scripts\PageDesigner\Components\Paragraph.js" />
+    <Content Include="Scripts\PageDesigner\Components\WidthTypes.js" />
+    <Content Include="Scripts\PageDesigner\Controls\BlockHover.js" />
+    <Content Include="Scripts\PageDesigner\DesignerPropertiesTypes.js" />
+    <Content Include="Scripts\PageDesigner\PageDesigner.js" />
+    <Content Include="Scripts\PageDesigner\PageDesignerModule.js" />
+    <Content Include="Scripts\parser.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RS.JS\Controls\Autocomplete.js" />
+    <Content Include="Scripts\RS.JS\Controls\Breadcrumb.js" />
+    <Content Include="Scripts\RS.JS\Controls\Button.js" />
+    <Content Include="Scripts\RS.JS\Controls\ButtonDropdown.js" />
+    <Content Include="Scripts\RS.JS\Controls\ButtonGroup.js" />
+    <Content Include="Scripts\RS.JS\Controls\ButtonSizes.js" />
+    <Content Include="Scripts\RS.JS\Controls\ButtonTypes.js" />
+    <Content Include="Scripts\RS.JS\Controls\Combobox.js" />
+    <Content Include="Scripts\RS.JS\Controls\Container.js" />
+    <Content Include="Scripts\RS.JS\Controls\Control.js" />
+    <Content Include="Scripts\RS.JS\Controls\Controls.js" />
+    <Content Include="Scripts\RS.JS\Controls\ControlsGenerator.js" />
+    <Content Include="Scripts\RS.JS\Controls\DataControl.js" />
+    <Content Include="Scripts\RS.JS\Controls\DataDropdown.js" />
+    <Content Include="Scripts\RS.JS\Controls\DataGrid.js" />
+    <Content Include="Scripts\RS.JS\Controls\DataSource.js" />
+    <Content Include="Scripts\RS.JS\Controls\DateTimePicker.js" />
+    <Content Include="Scripts\RS.JS\Controls\Dropdown.js" />
+    <Content Include="Scripts\RS.JS\Controls\Grid.js" />
+    <Content Include="Scripts\RS.JS\Controls\HandlebarsExtensions.js" />
+    <Content Include="Scripts\RS.JS\Controls\List.js" />
+    <Content Include="Scripts\RS.JS\Controls\Menu.js" />
+    <Content Include="Scripts\RS.JS\Controls\Modal.js" />
+    <Content Include="Scripts\RS.JS\Controls\ModalButton.js" />
+    <Content Include="Scripts\RS.JS\Controls\ModalSizes.js" />
+    <Content Include="Scripts\RS.JS\Controls\Notification.js" />
+    <Content Include="Scripts\RS.JS\Controls\NotificationTypes.js" />
+    <Content Include="Scripts\RS.JS\Controls\Notifier.js" />
+    <Content Include="Scripts\RS.JS\Controls\Orientations.js" />
+    <Content Include="Scripts\RS.JS\Controls\Pager.js" />
+    <Content Include="Scripts\RS.JS\Controls\PagerSizes.js" />
+    <Content Include="Scripts\RS.JS\Controls\Panel.js" />
+    <Content Include="Scripts\RS.JS\Controls\Popover.js" />
+    <Content Include="Scripts\RS.JS\Controls\ProgressBar.js" />
+    <Content Include="Scripts\RS.JS\Controls\SplitButton.js" />
+    <Content Include="Scripts\RS.JS\Controls\Tab.js" />
+    <Content Include="Scripts\RS.JS\Controls\TabItem.js" />
+    <Content Include="Scripts\RS.JS\Controls\ToggleButton.js" />
+    <Content Include="Scripts\RS.JS\Controls\Tooltip.js" />
+    <Content Include="Scripts\RS.JS\Controls\TreeView.js" />
+    <Content Include="Scripts\RS.JS\Controls\TreeViewNode.js" />
+    <Content Include="Scripts\RS.JS\Extensions\Array.js" />
+    <Content Include="Scripts\RS.JS\Extensions\Date.js" />
+    <Content Include="Scripts\RS.JS\Extensions\jQueryExtensions.js" />
+    <Content Include="Scripts\RS.JS\Extensions\String.js" />
+    <Content Include="Scripts\RS.JS\HandlebarsExtensions.js" />
+    <Content Include="Scripts\RS.JS\RS.BoundElement.js" />
+    <Content Include="Scripts\RS.JS\RS.Cache.js" />
+    <Content Include="Scripts\RS.JS\RS.Constants.js" />
+    <Content Include="Scripts\RS.JS\RS.Controller.js" />
+    <Content Include="Scripts\RS.JS\RS.ControllersManager.js" />
+    <Content Include="Scripts\RS.JS\RS.Core.js" />
+    <Content Include="Scripts\RS.JS\RS.Event.js" />
+    <Content Include="Scripts\RS.JS\RS.Guid.js" />
+    <Content Include="Scripts\RS.JS\RS.HandlebarsRenderer.js" />
+    <Content Include="Scripts\RS.JS\RS.js" />
+    <Content Include="Scripts\RS.JS\RS.Keys.js" />
+    <Content Include="Scripts\RS.JS\RS.Logger.js" />
+    <Content Include="Scripts\RS.JS\RS.LogTypes.js" />
+    <Content Include="Scripts\RS.JS\RS.PubSub.js" />
+    <Content Include="Scripts\RS.JS\RS.Remote.js" />
+    <Content Include="Scripts\RS.JS\RS.Utils.js" />
+    <Content Include="Scripts\RS.JS\RS.Validation.js" />
+    <Content Include="Scripts\RS.JS\RS.Validators.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -262,7 +427,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -270,15 +434,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Views\PageDesigner\Index.cshtml" />
+    <Content Include="Views\PageDesigner\_Templates.cshtml" />
+    <Content Include="Views\Shared\_ComponentsTemplates.cshtml" />
+    <Content Include="Views\Shared\_RS_Controls_Templates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-3.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OAuth2\OAuth2.csproj">
@@ -297,6 +459,9 @@
       <Project>{01b9baa1-31ce-406b-b52f-8bc783898a95}</Project>
       <Name>Omnia.DM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -331,7 +496,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

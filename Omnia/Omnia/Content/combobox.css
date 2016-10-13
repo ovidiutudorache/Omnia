@@ -1,0 +1,16 @@
+﻿[role="dropdown"].combobox [role="list"] {
+    width: 100%;
+}
+
+[role="dropdown"].combobox [role="dropdown-toggle"] {
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    min-width: initial;
+}
+
+[role="dropdown"].combobox [role="dropdown-toggle"] .caret {
+    position: relative;
+    right: auto;
+    top: auto;
+    margin-top: 0;
+}

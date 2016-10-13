@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Pages designer";
+}
+
+<div class="row page-designer">
+    <div class="components-panel-container col-lg-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Components</h3>
+            </div>
+            <div class="panel-body">
+                <div class="controls-container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 designer-panel-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Designer</h3>
+            </div>
+            <div class="panel-body page-container-parent">
+                <div>
+                    <div role="tabpanel">
+
+                        <div class="tab-content" role="content">
+                            <div role="tabpanel" class="tab-panel active" id="design-tab">
+                                <div class="page-container">
+                                    <div class="container component">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 properties-panel-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Properties</h3>
+            </div>
+            <div class="panel-body properties-container">
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_ComponentsTemplates")
+@Html.Partial("_Templates")
+
+@section styles{
+    @Styles.Render("~/Content/PageDesigner")
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/PageDesigner")
+}

@@ -1,0 +1,44 @@
+﻿<script id="properties-designer-template" type="text/x-handlebars-template">
+    {{#if Properties}}
+    <table class="table">
+        {{#each Properties}}
+        <tr role="property" data-name="{{Name}}">
+            {{#ifCond Type 'Select'}}
+            <td><span>{{Name}}:</span></td>
+            <td>
+                <select class="form-control">
+                    {{#each Values}}
+                    <option value="{{Value}}">{{Label}}</option>
+                    {{/each}}
+                </select>
+            </td>
+            {{/ifCond}}
+            {{#ifCond Type 'Text'}}
+            <td><span>{{Name}}:</span></td>
+            <td>
+                <input class="form-control" value="" />
+            </td>
+            {{/ifCond}}
+        </tr>
+        {{/each}}
+    </table>
+    {{else}}
+    <span>No properties</span>
+    {{/if}}
+</script>
+
+<script id="block-hover-template" type="text/x-handlebars-template">
+    <div>
+        <div class="hover-block">
+            <span role="name"></span>
+        </div>
+        <div class="hover-block-options">
+            <div class="options">
+                <span class="glyphicon glyphicon-plus add-block" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-plus increase-size" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-minus decrease-size" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove remove-block" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+</script>

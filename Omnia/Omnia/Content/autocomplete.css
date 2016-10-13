@@ -1,0 +1,11 @@
+﻿[role="dropdown"].autocomplete [role="list"] {
+    width: 100%;
+}
+
+[role="dropdown"] [role="summary-container"] {
+    display: none;
+}
+
+[role="dropdown"] [role="summary-container"].visible {
+    display: table-cell;
+}

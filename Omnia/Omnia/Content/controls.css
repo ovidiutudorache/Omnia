@@ -1,0 +1,8 @@
+﻿[data-control] .selected {
+    background-color: #265a88 !important;
+    color: white;
+}
+
+    [data-control] .selected a:hover {
+        background-color: #265a88 !important;
+    }

@@ -1,0 +1,28 @@
+﻿[role="grid"] .grid-header-table {
+    margin: 0;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+[role="grid"] .grid-body-table {
+    border-top: none;
+    margin: 0;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+    [role="grid"] .grid-body-table tr:first-child td {
+        border-top: none;
+    }
+
+[role="grid"] > [role="body"] {
+    height: auto;
+    overflow-y: auto;
+}
+
+    [role="grid"] > [role="body"] td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        white-space: normal;
+    }

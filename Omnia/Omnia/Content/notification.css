@@ -1,0 +1,10 @@
+﻿.alert {
+    display: none;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+}
+
+    .alert [role="message"] {
+        margin-left: 10px;
+    }
